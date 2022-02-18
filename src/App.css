@@ -31,15 +31,21 @@ img {
 }
 
 .box {
-    background-color: white;
     border: 2px solid;
     margin: 20px;
     padding: 5px;
-
+    border-radius: 5px;
 }
 
 .d-flex {
     display: flex;
+}
+.j-center{
+    justify-content: center;
+}
+
+.a-center{
+    align-items: center;
 }
 
 .column {
@@ -50,7 +56,29 @@ img {
     margin-bottom: 10px;
 }
 
-
 .mb-50 {
     margin-bottom: 50px;
+}
+
+.mt-100{
+    margin-top: 100px;
+}
+
+.ml-15{
+    margin-left: 15px;
+}
+
+.mr-15{
+    margin-right: 15px;
+}
+.wrap{
+    flex-wrap: wrap;
+}
+
+.space-b{
+    justify-content: space-around;
+}
+
+.bg-color{
+    background-color: #a1d9ff;
 }

@@ -1,59 +1,41 @@
 import './App.css';
-import UserInfo from './Comps/CreateRecipe'
 import React, {useState} from "react";
-import {useRef} from "react";
+import mainContext from "./context/useContext";
+import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
+import ShowAllRecipes from "./Pages/ShowAllRecipes";
+import CreateRecipe from "./Pages/CreateRecipe";
+import ShowFavoriteRecipes from "./Pages/ShowFavoriteRecipes";
+import ShowSingleRecipe from "./Pages/ShowSingleRecipe";
+
 
 function App() {
 
     const [getRecipes, setRecipes] = useState([])
 
-    const photoRef = useRef()
-    const secPhotoRef = useRef()
-    const titleRef = useRef()
-    const ingredientsRef = useRef()
-    const preTimeRef = useRef()
-    const preStepRef = useRef()
-
-
-    function createRecipe() {
-
-
-        const recipe = {
-            photo: photoRef.current.value,
-            secPhoto: secPhotoRef.current.value,
-            title: titleRef.current.value,
-            ingredients: ingredientsRef.current.value,
-            preTime: preTimeRef.current.value,
-            preStep: preStepRef.current.value,
-
-        }
-        setRecipes([...getRecipes, recipe])
-    }
 
     return (
-        <div className="App center ">
+        <div className="d-flex a-center j-center mt-100 column">
+            <mainContext.Provider value={{getRecipes, setRecipes}}>
+                <Router>
+                    <div>
+                        <Link to="/createrecipe"><button className="ml-15">Create Recipe</button></Link>
+                        <Link to='/'><button className="ml-15">All posts</button></Link>
+                        <Link to='/favoriterecipes'><button className="ml-15">Favorites</button></Link>
+                    </div>
 
-            <div className="card d-flex column ">
+                    <Routes>
+                        <Route path="/" element={<ShowAllRecipes/>}/>
+                        <Route path="/createrecipe" element={<CreateRecipe/>}/>
+                        <Route path="/favoriterecipes" element={<ShowFavoriteRecipes/>}/>
+                        <Route path="/singlerecipe/:id" element={<ShowSingleRecipe/>}/>
 
-                <div>
-                    <input className="mb-10" ref={photoRef} placeholder="Photo" type="text"/>
-                    <input className="mb-10" ref={secPhotoRef} placeholder="Photo" type="text"/>
-                </div>
-
-                <input className="mb-10" ref={titleRef} placeholder="Title" type="text"/>
-                <input className="mb-10" ref={ingredientsRef} placeholder="Ingredients" type="text"/>
-                <input className="mb-10" ref={preTimeRef} placeholder="Preparation time" type="text"/>
-                <input className="mb-10" ref={preStepRef} placeholder="Preparation steps" type="text"/>
-
-                <button onClick={createRecipe}>Create</button>
-            </div>
-
-            {getRecipes.map((x, index) => <UserInfo recipe={x} key={index}/>)}
-
+                    </Routes>
+                </Router>
+            </mainContext.Provider>
         </div>
 
 
-    );
+);
 }
 
 export default App;
